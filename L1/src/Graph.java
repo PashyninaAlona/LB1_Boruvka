@@ -1,11 +1,7 @@
 import java.util.ArrayList;
-/*
-    Java Program
-    Boruvka's algorithm for minimum spanning trees
-*/
+
 class Edge
 {
-    // Edge weight or cost
     public int weight;
     public int dest;
     public int src;
@@ -47,7 +43,6 @@ public class Graph
         {
             return;
         }
-        // add node edge
         graphEdge.get(src).add(new Edge(w, src, dest));
         if (dest == src)
         {
@@ -84,7 +79,6 @@ public class Graph
     }
     public void boruvkaMST()
     {
-        // Contain weight sum in mst path
         int result = 0;
         int selector = this.vertices;
         State[] subsets = new State[this.vertices];
@@ -129,10 +123,9 @@ public class Graph
                     int set2 = find(subsets, cheapest[i].dest);
                     if (set1 != set2)
                     {
-                        // Reduce a edge
                         selector--;
                         findUnion(subsets, set1, set2);
-                        // Display the edge connection
+                        
                         System.out.print("\n Include Edge (" +
                                 cheapest[i].src + " - " +
                                 cheapest[i].dest + ") weight " +
@@ -145,7 +138,6 @@ public class Graph
 
     public void boruvkaMaxST()
     {
-        // Contain weight sum in mst path
         int result = 0;
         int selector = this.vertices;
         State[] subsets = new State[this.vertices];
@@ -179,10 +171,10 @@ public class Graph
                     int set1 = find(subsets, cheapest[i].src);
                     int set2 = find(subsets, cheapest[i].dest);
                     if (set1 != set2) {
-                        // Reduce a edge
+                        
                         selector--;
                         findUnion(subsets, set1, set2);
-                        // Display the edge connection
+                        
                         System.out.print("\n Include Edge (" +
                                 cheapest[i].src + " - " +
                                 cheapest[i].dest + ") weight " +
@@ -213,7 +205,7 @@ public class Graph
         g.addEdge(4, 7, 48);
         g.addEdge(5, 6, 1);
 
-        // Find MST
+        
         System.out.println("\n Boruvka MinST:  ");
         g.boruvkaMST();
 
