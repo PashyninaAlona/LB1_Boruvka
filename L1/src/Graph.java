@@ -77,7 +77,7 @@ public class Graph
             subsets[a].rank++;
         }
     }
-    public void boruvkaMST()
+    public void boruvkaMinST()
     {
         int result = 0;
         int selector = this.vertices;
@@ -136,55 +136,6 @@ public class Graph
         }
     }
 
-    public void boruvkaMaxST()
-    {
-        int result = 0;
-        int selector = this.vertices;
-        State[] subsets = new State[this.vertices];
-        Edge[] cheapest = new Edge[this.vertices];
-        for (int v = 0; v < this.vertices; ++v)
-        {
-            subsets[v] = new State(v, 0);
-        }
-        while (selector > 1) {
-            for (int v = 0; v < this.vertices; ++v) {
-                cheapest[v] = null;
-            }
-            for (int k = 0; k < this.vertices; k++) {
-                for (int i = 0; i < this.graphEdge.get(k).size(); ++i) {
-                    int set1 = find(subsets,
-                            this.graphEdge.get(k).get(i).src);
-                    int set2 = find(subsets,
-                            this.graphEdge.get(k).get(i).dest);
-                    if (set1 != set2) {
-                        if (cheapest[k] == null) {
-                            cheapest[k] = this.graphEdge.get(k).get(i);
-                        } else if (cheapest[k].weight <
-                                this.graphEdge.get(k).get(i).weight) {
-                            cheapest[k] = this.graphEdge.get(k).get(i);
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < this.vertices; i++) {
-                if (cheapest[i] != null) {
-                    int set1 = find(subsets, cheapest[i].src);
-                    int set2 = find(subsets, cheapest[i].dest);
-                    if (set1 != set2) {
-                        
-                        selector--;
-                        findUnion(subsets, set1, set2);
-                        
-                        System.out.print("\n Include Edge (" +
-                                cheapest[i].src + " - " +
-                                cheapest[i].dest + ") weight " +
-                                cheapest[i].weight);
-                    }
-                }
-            }
-        }
-    }
-
 
 
     public static void main(String[] args)
@@ -207,11 +158,7 @@ public class Graph
 
         
         System.out.println("\n Boruvka MinST:  ");
-        g.boruvkaMST();
+        g.boruvkaMinST();
 
-        System.out.println("\n _________________________________");
-
-        System.out.println("\n Boruvka MaxST:  ");
-        g.boruvkaMaxST();
     }
 }
